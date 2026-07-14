@@ -1,0 +1,75 @@
+<!-- <!DOCTYPE html>
+<html>
+<head><title>Add Task</title></head>
+<body>
+  <h1>Add a Task</h1>
+  <form method="POST">
+    {% csrf_token %}
+    <input type="text" name="title" placeholder="Enter task..." required>
+    <button type="submit">Add</button>
+  </form>
+  <a href="{% url 'task_list' %}">← Back</a>
+</body>
+</html> -->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Task</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">✅ Todo App</div>
+  <div class="nav-links">
+    <a href="{% url 'task_list' %}">Home</a>
+    <a href="{% url 'add_task' %}">Add Task</a>
+    <a href="/admin/">Admin</a>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="form-card">
+    <h2>➕ Add a New Task</h2>
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label>Task Title *</label>
+        <input
+          type="text"
+          name="title"
+          placeholder="e.g. Study at 5.30am, Cook breakfast..."
+          required
+          autofocus
+        >
+      </div>
+
+      <div class="form-group">
+        <label>Priority</label>
+        <input type="text" placeholder="Normal / High / Low">
+      </div>
+
+      <div class="form-group">
+        <label>Due Date (optional)</label>
+        <input type="date">
+      </div>
+
+      <div style="display:flex; gap:10px; margin-top:10px;">
+        <button type="submit" class="btn-add">💾 Save Task</button>
+        <a href="{% url 'task_list' %}" class="btn-delete"
+           style="padding:8px 16px; border-radius:8px; text-decoration:none; font-size:13px;">
+          ← Cancel
+        </a>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+</body>
+</html>

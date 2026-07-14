@@ -1,0 +1,87 @@
+<!-- <!DOCTYPE html>
+<html>
+<head><title>Todo List</title></head>
+<body>
+  <h1>My Tasks</h1>
+  <a href="{% url 'add_task' %}">+ Add Task</a>
+  <ul>
+    {% for task in tasks %}
+      <li>
+        {% if task.completed %}
+          <s>{{ task.title }}</s>
+        {% else %}
+          {{ task.title }}
+          <a href="{% url 'complete_task' task.id %}">✅ Done</a>
+        {% endif %}
+        <a href="{% url 'delete_task' task.id %}">🗑 Delete</a>
+      </li>
+    {% empty %}
+      <li>No tasks yet!</li>
+    {% endfor %}
+  </ul>
+</body>
+</html> -->
+
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Todo App</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">✅ Todo App</div>
+  <div class="nav-links">
+    <a href="{% url 'task_list' %}">Home</a>
+    <a href="{% url 'add_task' %}">Add Task</a>
+    <a href="/admin/">Admin</a>
+  </div>
+</nav>
+
+<div class="container">
+  <!-- CORRECT STATS -->
+<div class="stats">
+    <div class="stat-card">
+      <div class="number" style="color:#4A90E2">{{ tasks|length }}</div>
+      <div class="label">Total</div>
+    </div>
+    <div class="stat-card">
+      <div class="number" style="color:#2e7d32">{{ completed_count }}</div>
+      <div class="label">Done</div>
+    </div>
+    <div class="stat-card">
+      <div class="number" style="color:#e65100">{{ pending_count }}</div>
+      <div class="label">Pending</div>
+    </div>
+</div>
+  </div>
+
+  <div class="section-header">
+    <h2>All Tasks</h2>
+    <a href="{% url 'add_task' %}" class="btn-add">+ Add Task</a>
+  </div>
+
+  <div class="task-list">
+    {% for task in tasks %}
+    <div class="task-item">
+      <span class="{% if task.completed %}completed{% endif %}">
+        {{ task.title }}
+      </span>
+      {% if not task.completed %}
+        <a href="{% url 'complete_task' task.id %}" class="btn-done">✅ Done</a>
+      {% endif %}
+      <a href="{% url 'delete_task' task.id %}" class="btn-delete">🗑 Delete</a>
+    </div>
+    {% empty %}
+    <div class="empty-state">No tasks yet! Click Add Task to begin.</div>
+    {% endfor %}
+  </div>
+</div>
+
+</body>
+</html>
